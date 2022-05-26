@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  birth_date   DateTime?
+  phone        String
+  email        String
+  cpf          String
+  sex          String?
+  date_created DateTime  @default(now())
+  role         String
+  username     String    @unique
+  password     String
+  orders       Order[]
+
+  @@map("user")
+}
+
+model Product {
+  id                String            @id @default(uuid())
+  product_type      String
+  collection        String
+  name              String
+  date_created      DateTime          @default(now())
+  pp                String?
+  p                 String?
+  m                 String?
+  g                 String?
+  gg                String?
+  id_promotion      String?
+  promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
+  product_has_order ProductHasOrder[]
+
+  @@map("product")
+}
+
+model Promotion {
+  id         String    @id @default(uuid())
+  name       String
+  start_date DateTime  @default(now())
+  end_date   DateTime?
+  discount   String?
+  products   Product[]
+
+  @@map("promotion")
+}
+
+//Analisar order nessa tabela
+//Analisar o porque cadastrar opções de pagamento
+model PaymentOptions {
+  id          String  @id @default(uuid())
+  name        String
+  flag        String?
+  installment String? @default("Sem Parcelamento")
+  order       Order?
+
+  @@map("payment_options")
+}
+
+model Order {
+  id                    String            @id @default(uuid())
+  date_created          DateTime          @default(now())
+  fk_id_user            String
+  user                  User              @relation(fields: [fk_id_user], references: [id])
+  fk_id_payment_options String            @unique
+  payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
+  product_has_order     ProductHasOrder[]
+  is_open               Boolean           @default(true)
+
+  @@map("order")
+}
+
+model ProductHasOrder {
+  id            String  @id @default(uuid())
+  fk_id_product String
+  fk_id_order   String
+  products      Product @relation(fields: [fk_id_product], references: [id])
+  order         Order   @relation(fields: [fk_id_order], references: [id])
+
+  @@map("product_has_order")
+}
