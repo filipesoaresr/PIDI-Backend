@@ -33,16 +33,31 @@ model Product {
   collection        String
   name              String
   date_created      DateTime          @default(now())
-  pp                String?
-  p                 String?
-  m                 String?
-  g                 String?
-  gg                String?
   id_promotion      String?
   promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
+  product_has_size  ProductHasSize[]
 
   @@map("product")
+}
+
+model Size {
+  id               String           @id @default(uuid())
+  productSize      String
+  product_has_size ProductHasSize[]
+
+  @@map("size")
+}
+
+model ProductHasSize {
+  id            String  @id @default(uuid())
+  fk_id_product String
+  fk_id_size    String
+  qtd           String
+  product       Product @relation(fields: [fk_id_product], references: [id])
+  size          Size    @relation(fields: [fk_id_size], references: [id])
+
+  @@map("product_has_size")
 }
 
 model Promotion {
@@ -77,8 +92,18 @@ model Order {
   payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
   product_has_order     ProductHasOrder[]
   is_open               Boolean           @default(true)
+  sale                  Sale[]
 
   @@map("order")
+}
+
+model Sale {
+  id             String   @id @default(uuid())
+  date_submitted DateTime @default(now())
+  fk_id_order    String
+  order          Order    @relation(fields: [fk_id_order], references: [id])
+
+  @@map("sale")
 }
 
 model ProductHasOrder {

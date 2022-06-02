@@ -59,10 +59,10 @@ export class CreatePromotionUseCase {
 
                 data: {
                     name,
-                    startDate,
-                    endDate,
+                    //startDate,
+                    //endDate,
                     discount,
-                    products
+                    //products,
                 }
             });
 
