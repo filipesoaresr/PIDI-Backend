@@ -6,7 +6,7 @@ export class GetPaymentOptionsUseCase {
     async execute() {
 
         try {
-            const paymentOption = await prisma.payment_options.findMany();
+            const paymentOption = await prisma.paymentOptions.findMany();
             return paymentOption
         }
         catch (err) {

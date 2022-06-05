@@ -65,11 +65,6 @@ export class CreateProductUseCase {
                     name,
                     collection,
                     date_created,
-                    pp,
-                    p,
-                    m,
-                    g,
-                    gg,
                     value,
                     promotion
                 }

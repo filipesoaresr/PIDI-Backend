@@ -12,16 +12,16 @@ datasource db {
 
 model User {
   id           String    @id @default(uuid())
-  name         String
-  birth_date   DateTime?
-  phone        String
-  email        String
-  cpf          String
-  sex          String?
+  name         String    @db.VarChar(60)
+  birth_date   DateTime? @db.Date
+  phone        String    @db.VarChar(9)
+  email        String    @db.VarChar(45)
+  cpf          String    @unique @db.VarChar(11)
+  sex          String?   @db.VarChar(15)
   date_created DateTime  @default(now())
-  role         String
+  role         String    @db.VarChar(12)
   username     String    @unique
-  password     String
+  password     String    @db.VarChar(20)
   orders       Order[]
 
   @@map("user")
@@ -29,55 +29,68 @@ model User {
 
 model Product {
   id                String            @id @default(uuid())
-  product_type      String
-  collection        String
-  name              String
+  product_type      String            @db.VarChar(25)
+  collection        String            @db.VarChar(40)
+  name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
+  value             Int               @db.Integer
   id_promotion      String?
   promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
   product_has_size  ProductHasSize[]
 
+  PromotionHasProduct PromotionHasProduct[]
   @@map("product")
 }
 
 model Size {
-  id               String           @id @default(uuid())
-  productSize      String
+  id               Int              @id @default(autoincrement())
+  productSize      String           @db.VarChar(13)
   product_has_size ProductHasSize[]
 
   @@map("size")
 }
 
 model ProductHasSize {
-  id            String  @id @default(uuid())
   fk_id_product String
-  fk_id_size    String
-  qtd           String
+  fk_id_size    Int
+  qtd           Int     @db.Integer
   product       Product @relation(fields: [fk_id_product], references: [id])
   size          Size    @relation(fields: [fk_id_size], references: [id])
 
+  @@id([fk_id_product, fk_id_size])
   @@map("product_has_size")
 }
 
 model Promotion {
   id         String    @id @default(uuid())
-  name       String
+  name       String    @db.VarChar(30)
   start_date DateTime  @default(now())
   end_date   DateTime?
-  discount   String?
+  discount   String?   @db.VarChar(15)
   products   Product[]
 
+  PromotionHasProduct PromotionHasProduct[]
   @@map("promotion")
+}
+
+model PromotionHasProduct {
+  fk_id_product   String
+  fk_id_promotion String
+  product         Product   @relation(fields: [fk_id_product], references: [id])
+  promotion       Promotion @relation(fields: [fk_id_promotion], references: [id])
+
+  @@id([fk_id_product, fk_id_promotion])
+  @@map("promotion_has_product")
 }
 
 //Analisar order nessa tabela
 //Analisar o porque cadastrar opções de pagamento
 model PaymentOptions {
   id          String  @id @default(uuid())
-  name        String
-  flag        String?
-  installment String? @default("Sem Parcelamento")
+  name        String  @db.VarChar(20)
+  flag        String? @db.VarChar(20)
+  installment String? @default("Sem Parcelamento") @db.VarChar(20)
   order       Order?
 
   @@map("payment_options")
@@ -85,13 +98,13 @@ model PaymentOptions {
 
 model Order {
   id                    String            @id @default(uuid())
-  date_created          DateTime          @default(now())
-  fk_id_user            String
-  user                  User              @relation(fields: [fk_id_user], references: [id])
+  date_created          DateTime          @default(now()) @db.Date
   fk_id_payment_options String            @unique
+  fk_id_user            String
+  is_open               Boolean           @default(true)
+  user                  User              @relation(fields: [fk_id_user], references: [id])
   payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
   product_has_order     ProductHasOrder[]
-  is_open               Boolean           @default(true)
   sale                  Sale[]
 
   @@map("order")
@@ -99,7 +112,7 @@ model Order {
 
 model Sale {
   id             String   @id @default(uuid())
-  date_submitted DateTime @default(now())
+  date_submitted DateTime @default(now()) @db.Date
   fk_id_order    String
   order          Order    @relation(fields: [fk_id_order], references: [id])
 
@@ -107,11 +120,13 @@ model Sale {
 }
 
 model ProductHasOrder {
-  id            String  @id @default(uuid())
+  qtdOrder      Int     @db.Integer
   fk_id_product String
   fk_id_order   String
+  hasPromotion  Boolean @default(false)
   products      Product @relation(fields: [fk_id_product], references: [id])
   order         Order   @relation(fields: [fk_id_order], references: [id])
 
+  @@id([fk_id_product, fk_id_order])
   @@map("product_has_order")
 }

@@ -11,11 +11,6 @@ export class CreateProductController {
             name,
             collection,
             date_created,
-            pp,
-            p,
-            m,
-            g,
-            gg,
             value,
             promotion
         } = request.body;
@@ -28,11 +23,6 @@ export class CreateProductController {
             name,
             collection,
             date_created,
-            pp,
-            p,
-            m,
-            g,
-            gg,
             value,
             promotion
         });

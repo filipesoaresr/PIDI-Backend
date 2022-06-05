@@ -14,7 +14,7 @@ export class CreatePaymentOptionUseCase {
 
         //Validar se o PaymentOption existe
         try {
-            const paymentOptionExists = await prisma.payment_options.findFirst({
+            const paymentOptionExists = await prisma.paymentOptions.findFirst({
                 where: {
                     name: {
                         equals: name,
@@ -35,7 +35,7 @@ export class CreatePaymentOptionUseCase {
         //Salvar o PaymentOption
         try {
 
-            const paymentOption = await prisma.payment_options.create({
+            const paymentOption = await prisma.paymentOptions.create({
 
                 data: {
                     name,
