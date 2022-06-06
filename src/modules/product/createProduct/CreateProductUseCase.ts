@@ -1,23 +1,20 @@
 import { prisma } from '../../../database/prismaClient';
 
-
-
 interface ICreateProduct {
 
     product_type: string;
     name: string;
     collection: string;
     date_created: Date;
-    pp?: string
-    p?: string
-    m?: string
-    g?: string
-    gg?: string
-    value: string
-    promotion?: string
-
-
+    value: number;
+    pp?: number;
+    p?: number;
+    m?: number;
+    g?: number;
+    gg?: number;
+    id_promotion?: string;
 }
+
 
 export class CreateProductUseCase {
 
@@ -26,13 +23,14 @@ export class CreateProductUseCase {
         name,
         collection,
         date_created,
+        value,
         pp,
         p,
         m,
         g,
-        gg,
-        value,
-        promotion
+        gg , 
+        id_promotion
+        
     }: ICreateProduct) {
 
         //Validar se o Produto existe
@@ -66,7 +64,13 @@ export class CreateProductUseCase {
                     collection,
                     date_created,
                     value,
-                    promotion
+                    pp,
+                    p,
+                    m,
+                    g,
+                    gg,  
+                    id_promotion,
+                    
                 }
             });
 
@@ -76,5 +80,9 @@ export class CreateProductUseCase {
             console.log(err);
         }
 
+        
     }
 }
+
+
+

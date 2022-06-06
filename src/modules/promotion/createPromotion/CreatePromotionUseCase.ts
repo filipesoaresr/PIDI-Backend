@@ -6,7 +6,7 @@ interface ICreatePromotion {
     startDate?: Date;
     end_date?: Date;
     discount: string;
-    products:   string[];
+    products: string[];
 }
 
 export class CreatePromotionUseCase {

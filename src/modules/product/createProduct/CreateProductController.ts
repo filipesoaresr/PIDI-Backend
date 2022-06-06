@@ -12,7 +12,12 @@ export class CreateProductController {
             collection,
             date_created,
             value,
-            promotion
+            id_promotion,  
+            pp,
+            p,
+            m,
+            g,
+            gg
         } = request.body;
 
 
@@ -24,8 +29,14 @@ export class CreateProductController {
             collection,
             date_created,
             value,
-            promotion
+            id_promotion,
+            pp,
+            p,
+            m,
+            g,
+            gg  
         });
+
         return response.json(result);
     }
 }

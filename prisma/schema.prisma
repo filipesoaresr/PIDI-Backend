@@ -21,7 +21,7 @@ model User {
   date_created DateTime  @default(now())
   role         String    @db.VarChar(12)
   username     String    @unique
-  password     String    @db.VarChar(20)
+  password     String    @db.VarChar(200)
   orders       Order[]
 
   @@map("user")
@@ -34,33 +34,19 @@ model Product {
   name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
   value             Int               @db.Integer
+  pp                Int?              @db.Integer
+  p                 Int?              @db.Integer
+  m                 Int?              @db.Integer
+  g                 Int?              @db.Integer
+  gg                Int?              @db.Integer
   id_promotion      String?
   //promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
-  product_has_size  ProductHasSize[]
-
   PromotionHasProduct PromotionHasProduct[]
+
   @@map("product")
 }
 
-model Size {
-  id               Int              @id @default(autoincrement())
-  productSize      String           @db.VarChar(13)
-  product_has_size ProductHasSize[]
-
-  @@map("size")
-}
-
-model ProductHasSize {
-  id            Int              @id @default(autoincrement())
-  fk_id_product String
-  fk_id_size    Int
-  qtd           Int              @db.Integer
-  product       Product          @relation(fields: [fk_id_product], references: [id])
-  size          Size             @relation(fields: [fk_id_size], references: [id])
-
-  @@map("product_has_size")
-}
 
 model Promotion {
   id         String    @id @default(uuid())
@@ -102,6 +88,7 @@ model Order {
   fk_id_payment_options String            @unique
   fk_id_user            String
   is_open               Boolean           @default(true)
+
   user                  User              @relation(fields: [fk_id_user], references: [id])
   payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
   product_has_order     ProductHasOrder[]
@@ -114,18 +101,23 @@ model Sale {
   id             String   @id @default(uuid())
   date_submitted DateTime @default(now()) @db.Date
   fk_id_order    String
+
   order          Order    @relation(fields: [fk_id_order], references: [id])
 
   @@map("sale")
 }
 
 model ProductHasOrder {
-  qtdOrder      Int     @db.Integer
-  fk_id_product String
-  fk_id_order   String
-  hasPromotion  Boolean @default(false)
-  products      Product @relation(fields: [fk_id_product], references: [id])
-  order         Order   @relation(fields: [fk_id_order], references: [id])
+  pp                Int?              @db.Integer
+  p                 Int?              @db.Integer
+  m                 Int?              @db.Integer
+  g                 Int?              @db.Integer
+  gg                Int?              @db.Integer
+  fk_id_product     String
+  fk_id_order       String
+  hasPromotion      Boolean           @default(false)
+  products          Product           @relation(fields: [fk_id_product], references: [id])
+  order             Order             @relation(fields: [fk_id_order], references: [id])
 
   @@id([fk_id_product, fk_id_order])
   @@map("product_has_order")

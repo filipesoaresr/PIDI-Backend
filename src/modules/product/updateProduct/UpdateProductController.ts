@@ -11,7 +11,12 @@ export class UpdateProductController {
             collection,
             date_created,
             value,
-            promotion
+            pp,
+            p,
+            m,
+            g,
+            gg,
+            id_promotion
         } = request.body;
 
         const { id: id_product } = request.params;
@@ -25,7 +30,12 @@ export class UpdateProductController {
             collection,
             date_created,
             value,
-            promotion
+            pp,
+            p,
+            m,
+            g,
+            gg,
+            id_promotion
         });
         return response.json(result);
 

@@ -7,13 +7,13 @@ interface IProductUseCase {
     name: string;
     collection: string;
     date_created: Date;
-    pp?: string;
-    p?: string;
-    m?: string;
-    g?: string
-    gg?: string
-    value?: string
-    promotion?: string;
+    value: number;
+    pp: number;
+    p: number;
+    m: number;
+    g: number;
+    gg: number;
+    id_promotion?: string;
 }
 
 
@@ -25,13 +25,13 @@ export class UpdateProductUseCase {
         name,
         collection,
         date_created,
+        value,
+        id_promotion,
         pp,
         p,
         m,
         g,
-        gg,
-        value,
-        promotion
+        gg
     }: IProductUseCase) {
 
         try {
@@ -44,13 +44,13 @@ export class UpdateProductUseCase {
                     name,
                     collection,
                     date_created,
+                    value,
+                    id_promotion,
                     pp,
                     p,
                     m,
-                    g,
-                    gg,
-                    value,
-                    promotion
+                    g, 
+                    gg
                 }
             });
             return product
