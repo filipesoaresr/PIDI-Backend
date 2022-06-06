@@ -1,34 +1,19 @@
 import { prisma } from '../../../database/prismaClient';
 
-interface PromotionProduct {
-    product_type: string;
-    name: string;
-    collection: string;
-    date_created: Date;
-    pp?: string
-    p?: string
-    m?: string
-    g?: string
-    gg?: string
-    value: string
-    promotion?: string
-
-}
 
 interface ICreatePromotion {
     name: string;
     startDate?: Date;
-    endDate?: Date;
+    end_date?: Date;
     discount: string;
-    products?: PromotionProduct[];
+    products:   string[];
 }
 
 export class CreatePromotionUseCase {
 
     async execute({
         name,
-        startDate,
-        endDate,
+        end_date,
         discount,
         products,
     }: ICreatePromotion) {
@@ -54,15 +39,15 @@ export class CreatePromotionUseCase {
 
         //Salvar Promotion
         try {
-
-            const promotion = await prisma.promotion.createMany({
+             
+            const promotion = await prisma.promotion.create({
 
                 data: {
                     name,
-                    //startDate,
-                    //endDate,
+                    end_date,
                     discount,
-                    //products,
+                    products: products,
+                    
                 }
             });
 

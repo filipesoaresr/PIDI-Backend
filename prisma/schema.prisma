@@ -35,7 +35,7 @@ model Product {
   date_created      DateTime          @default(now())
   value             Int               @db.Integer
   id_promotion      String?
-  promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
+  //promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
   product_has_size  ProductHasSize[]
 
@@ -52,13 +52,13 @@ model Size {
 }
 
 model ProductHasSize {
+  id            Int              @id @default(autoincrement())
   fk_id_product String
   fk_id_size    Int
-  qtd           Int     @db.Integer
-  product       Product @relation(fields: [fk_id_product], references: [id])
-  size          Size    @relation(fields: [fk_id_size], references: [id])
+  qtd           Int              @db.Integer
+  product       Product          @relation(fields: [fk_id_product], references: [id])
+  size          Size             @relation(fields: [fk_id_size], references: [id])
 
-  @@id([fk_id_product, fk_id_size])
   @@map("product_has_size")
 }
 
@@ -68,7 +68,7 @@ model Promotion {
   start_date DateTime  @default(now())
   end_date   DateTime?
   discount   String?   @db.VarChar(15)
-  products   Product[]
+  products   String[]
 
   PromotionHasProduct PromotionHasProduct[]
   @@map("promotion")

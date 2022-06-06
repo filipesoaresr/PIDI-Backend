@@ -7,8 +7,8 @@ export class CreatePromotionController {
 
         const {
             name,
-            startDate,
-            endDate,
+            //startDate,
+            end_date,
             discount,
             products
         } = request.body
@@ -17,8 +17,8 @@ export class CreatePromotionController {
 
         const result = await createPromotionUseCase.execute({
             name,
-            startDate,
-            endDate,
+            //startDate,
+            end_date,
             discount,
             products
         });
