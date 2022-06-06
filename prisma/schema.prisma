@@ -21,7 +21,7 @@ model User {
   date_created DateTime  @default(now())
   role         String    @db.VarChar(12)
   username     String    @unique
-  password     String    @db.VarChar(20)
+  password     String    @db.VarChar(200)
   orders       Order[]
 
   @@map("user")
@@ -52,12 +52,12 @@ model Size {
 }
 
 model ProductHasSize {
-  id            Int              @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   fk_id_product String
   fk_id_size    Int
-  qtd           Int              @db.Integer
-  product       Product          @relation(fields: [fk_id_product], references: [id])
-  size          Size             @relation(fields: [fk_id_size], references: [id])
+  qtd           Int     @db.Integer
+  product       Product @relation(fields: [fk_id_product], references: [id])
+  size          Size    @relation(fields: [fk_id_size], references: [id])
 
   @@map("product_has_size")
 }
