@@ -14,14 +14,14 @@ model User {
   id           String    @id @default(uuid())
   name         String    @db.VarChar(60)
   birth_date   DateTime? @db.Date
-  phone        String    @db.VarChar(9)
+  phone        String?    @db.VarChar(9)
   email        String    @db.VarChar(45)
   cpf          String    @unique @db.VarChar(11)
   sex          String?   @db.VarChar(15)
   date_created DateTime  @default(now())
   role         String    @db.VarChar(12)
   username     String    @unique
-  password     String    @db.VarChar(200)
+  password     String    @db.VarChar(90)
   orders       Order[]
 
   @@map("user")
@@ -30,7 +30,7 @@ model User {
 model Product {
   id                String            @id @default(uuid())
   product_type      String            @db.VarChar(25)
-  collection        String            @db.VarChar(40)
+  collection        String?            @db.VarChar(40)
   name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
   value             Int               @db.Integer
@@ -51,8 +51,8 @@ model Product {
 model Promotion {
   id         String    @id @default(uuid())
   name       String    @db.VarChar(30)
-  start_date DateTime  @default(now())
-  end_date   DateTime?
+  start_date DateTime  @db.Date @default(now())
+  end_date   DateTime? @db.Date
   discount   String?   @db.VarChar(15)
   products   String[]
 

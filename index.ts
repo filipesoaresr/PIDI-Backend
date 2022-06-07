@@ -10,13 +10,6 @@ async function main() {
     data: sizesInProduct
   }) 
  */
-  const allProducts = await prisma.product.findMany({
-    include: { product_has_size: { include: { size: true } } },
-  })
-  const result = allProducts.map((product) => {
-    return { ...product, product_has_size: product.product_has_size.map((size) => size.size) }
-  })
-  console.log(JSON.stringify(result)) 
 }
 
 main()

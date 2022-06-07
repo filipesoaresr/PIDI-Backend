@@ -23,7 +23,16 @@ import { DeletePromotionController } from './modules/promotion/deletePromotion/D
 //Payment Options
 import { GetPaymentOptionsController } from './modules/paymentOption/getPaymentOption/GetPaymentOptionController';
 import { CreatePaymentOptionController } from './modules/paymentOption/createPaymentOption/CreatePaymentOptionController';
+
+//Authentication
 import { AuthenticateUserController } from './modules/account/authenticateUser/AuthenticateUserController';
+
+//Order 
+import { GetOrderController } from './modules/order/getOrder/GetOrderController';
+import { CreateOrderController } from './modules/order/createOrder/CreateOrderController';
+import { UpdateOrderController } from './modules/order/updateOrder/UpdateOrderController';
+import { DeleteOrderController } from './modules/order/deleteOrder/DeleteOrderController'
+
 
 const routes = Router();
 
@@ -50,12 +59,19 @@ const deletePromotionController = new DeletePromotionController();
 const getPaymentOptionsController = new GetPaymentOptionsController();
 const createPaymentOptionsController = new CreatePaymentOptionController();
 
+//Order 
+const getOrderController = new GetOrderController();
+const createOrderController = new CreateOrderController();
+const updateOrderController = new UpdateOrderController();
+const deleteOrderController = new DeleteOrderController();
+
 //Authenticate
 const authenticateUserController = new AuthenticateUserController();
 
 
 //User
-routes.get("/users", ensureAuthenticateUser, getUserController.handle)
+//routes.get("/users", ensureAuthenticateUser, getUserController.handle)
+routes.get("/users", getUserController.handle)
 routes.post("/users", createUserController.handle);
 routes.delete("/users/:id", ensureAuthenticateUser, deleteUserController.handle);
 routes.put("/users/:id", ensureAuthenticateUser, updateUserController.handle);
@@ -77,7 +93,15 @@ routes.get("/payment_options", getPaymentOptionsController.handle)
 routes.post("/payment_options", ensureAuthenticateUser, createPaymentOptionsController.handle);
 
 //Order
+routes.delete("/orders/id:", ensureAuthenticateUser, deleteOrderController.handle)
+routes.post("/orders", ensureAuthenticateUser, createOrderController.handle);
+routes.put("/orders/:id", ensureAuthenticateUser, updateOrderController.handle);
+routes.get("/orders", ensureAuthenticateUser, getOrderController.handle)
 
+
+routes.get("/", (req, res) => {
+    res.json({"Hello":"world"})
+});
 
 
 //Account
