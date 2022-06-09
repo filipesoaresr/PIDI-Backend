@@ -1,11 +1,23 @@
 import { prisma } from '../../../database/prismaClient';
 
+interface IProductInOrder {
+    pp: number,
+    p: number,
+    m: number,
+    g: number,
+    gg:number,
+    fk_id_product: string,
+    hasPromotion: false,
+
+}
+
 interface ICreateOrder {
-    id : string;
+    id: string;
     date_created: Date;
     fk_id_payment_options: string;
     fk_id_user: string;
     is_open: boolean;
+    product_has_order:IProductInOrder[]
 }
 
 
@@ -16,7 +28,8 @@ export class CreateOrderUseCase {
         date_created,
         fk_id_payment_options,
         fk_id_user,
-        is_open
+        is_open,
+        product_has_order
     }: ICreateOrder) {
 
         //Validar se o Pedido existe
@@ -42,29 +55,25 @@ export class CreateOrderUseCase {
         //Salvar o Pedido
         try {
 
+
             const order = await prisma.order.create({
-                
+
                 data: {
                     date_created,
                     fk_id_payment_options,
                     fk_id_user,
                     is_open,
-                    product_has_order:{
-                        create:[
-                            {
-                                pp:1,
-                                p:2,
-                                m:1,
-                                g:1,
-                                gg:2,
-                                fk_id_product:"aslçdk465",
-                                hasPromotion:false,
-                            }
+                    product_has_order: {
+                        create: product_has_order
 
-                        ]
+                    
                     }
+                    
                 }
+                
             });
+            
+            
 
             return order
         }
@@ -72,7 +81,7 @@ export class CreateOrderUseCase {
             console.log(err);
         }
 
-        
+
     }
 }
 

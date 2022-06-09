@@ -30,10 +30,10 @@ model User {
 model Product {
   id                String            @id @default(uuid())
   product_type      String            @db.VarChar(25)
-  collection        String?            @db.VarChar(40)
+  collection        String?           @db.VarChar(40)
   name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
-  value             Int               @db.Integer
+  value             Float             @db.Real
   pp                Int?              @db.Integer
   p                 Int?              @db.Integer
   m                 Int?              @db.Integer
@@ -85,39 +85,31 @@ model PaymentOptions {
 model Order {
   id                    String            @id @default(uuid())
   date_created          DateTime          @default(now()) @db.Date
-  fk_id_payment_options String            @unique
+  fk_id_payment_options String            
   fk_id_user            String
+  date_submitted        DateTime          @default(now()) @db.Date
   is_open               Boolean           @default(true)
+  total_value           Float             @default(0) @db.Real 
 
   user                  User              @relation(fields: [fk_id_user], references: [id])
   payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
   product_has_order     ProductHasOrder[]
-  sale                  Sale[]
 
   @@map("order")
 }
 
-model Sale {
-  id             String   @id @default(uuid())
-  date_submitted DateTime @default(now()) @db.Date
-  fk_id_order    String
-
-  order          Order    @relation(fields: [fk_id_order], references: [id])
-
-  @@map("sale")
-}
-
 model ProductHasOrder {
-  pp                Int?              @db.Integer
-  p                 Int?              @db.Integer
-  m                 Int?              @db.Integer
-  g                 Int?              @db.Integer
-  gg                Int?              @db.Integer
-  fk_id_product     String
-  fk_id_order       String
-  hasPromotion      Boolean           @default(false)
-  products          Product           @relation(fields: [fk_id_product], references: [id])
-  order             Order             @relation(fields: [fk_id_order], references: [id])
+  pp                  Int?              @db.Integer
+  p                   Int?              @db.Integer
+  m                   Int?              @db.Integer
+  g                   Int?              @db.Integer
+  gg                  Int?              @db.Integer
+  order_product_value Float             @default(0) @db.Real
+  fk_id_product       String
+  fk_id_order         String
+  hasPromotion        Boolean           @default(false)
+  products            Product           @relation(fields: [fk_id_product], references: [id])
+  order               Order             @relation(fields: [fk_id_order], references: [id])
 
   @@id([fk_id_product, fk_id_order])
   @@map("product_has_order")

@@ -6,7 +6,7 @@ export class GetOrderUseCase {
     async execute() {
 
         try {
-            const order = await prisma.order.findMany();
+            const order = await prisma.order.findMany({include:{product_has_order:true}});
             return order
         }
         catch (err) {
