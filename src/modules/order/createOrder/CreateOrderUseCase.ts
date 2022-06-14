@@ -6,6 +6,7 @@ interface IProductInOrder {
     m: number,
     g: number,
     gg:number,
+    order_product_value: number,
     fk_id_product: string,
     hasPromotion: false,
 
@@ -14,6 +15,7 @@ interface IProductInOrder {
 interface ICreateOrder {
     id: string;
     date_created: Date;
+    date_submitted: Date;
     fk_id_payment_options: string;
     fk_id_user: string;
     is_open: boolean;
@@ -26,6 +28,7 @@ export class CreateOrderUseCase {
     async execute({
         id,
         date_created,
+        date_submitted,
         fk_id_payment_options,
         fk_id_user,
         is_open,
@@ -60,6 +63,7 @@ export class CreateOrderUseCase {
 
                 data: {
                     date_created,
+                    date_submitted,
                     fk_id_payment_options,
                     fk_id_user,
                     is_open,

@@ -8,6 +8,7 @@ export class GetUserUseCase {
         try {
             const users = await prisma.user.findMany({
                 select: {
+                    id: true,
                     name: true,
                     username: true,
                     password: false,

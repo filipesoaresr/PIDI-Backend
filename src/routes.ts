@@ -23,6 +23,7 @@ import { DeletePromotionController } from './modules/promotion/deletePromotion/D
 //Payment Options
 import { GetPaymentOptionsController } from './modules/paymentOption/getPaymentOption/GetPaymentOptionController';
 import { CreatePaymentOptionController } from './modules/paymentOption/createPaymentOption/CreatePaymentOptionController';
+import { DeletePaymentOptionController } from './modules/paymentOption/deletePaymentOption/DeletePaymentOptionController'
 
 //Authentication
 import { AuthenticateUserController } from './modules/account/authenticateUser/AuthenticateUserController';
@@ -58,6 +59,7 @@ const deletePromotionController = new DeletePromotionController();
 //Payment Options
 const getPaymentOptionsController = new GetPaymentOptionsController();
 const createPaymentOptionsController = new CreatePaymentOptionController();
+const deletePaymentOptionController = new DeletePaymentOptionController();
 
 //Order 
 const getOrderController = new GetOrderController();
@@ -73,30 +75,32 @@ const authenticateUserController = new AuthenticateUserController();
 //routes.get("/users", ensureAuthenticateUser, getUserController.handle)
 routes.get("/users", getUserController.handle)
 routes.post("/users", createUserController.handle);
-routes.delete("/users/:id", ensureAuthenticateUser, deleteUserController.handle);
-routes.put("/users/:id", ensureAuthenticateUser, updateUserController.handle);
+routes.delete("/users/:id", deleteUserController.handle);
+routes.put("/users/:id", updateUserController.handle);
 
 //Product
-routes.get("/products", ensureAuthenticateUser, getProductsController.handle)
-routes.post("/products", ensureAuthenticateUser, createProductController.handle);
-routes.put("/products/:id", ensureAuthenticateUser, updateProductController.handle);
-routes.delete("/products/:id", ensureAuthenticateUser, deleteProductController.handle);
+routes.get("/products", getProductsController.handle)
+routes.post("/products", createProductController.handle);
+routes.put("/products/:id", updateProductController.handle);
+routes.delete("/products/:id", deleteProductController.handle);
 
 //Promotion
-routes.get("/promotions", ensureAuthenticateUser, getPromotionController.handle)
-routes.post("/promotions", ensureAuthenticateUser, createPromotionController.handle);
-routes.put("/promotions/:id", ensureAuthenticateUser, updatePromotionController.handle);
-routes.delete("/promotions/:id", ensureAuthenticateUser, deletePromotionController.handle);
+routes.get("/promotions", getPromotionController.handle)
+routes.post("/promotions",  createPromotionController.handle);
+routes.put("/promotions/:id", updatePromotionController.handle);
+routes.delete("/promotions/:id", deletePromotionController.handle);
 
 //Payment Options
 routes.get("/payment_options", getPaymentOptionsController.handle)
-routes.post("/payment_options", ensureAuthenticateUser, createPaymentOptionsController.handle);
+routes.delete("/payment_options/:id", deletePaymentOptionController.handle)
+routes.post("/payment_options", createPaymentOptionsController.handle);
+
 
 //Order
-routes.delete("/orders/id:", ensureAuthenticateUser, deleteOrderController.handle)
-routes.post("/orders", ensureAuthenticateUser, createOrderController.handle);
-routes.put("/orders/:id", ensureAuthenticateUser, updateOrderController.handle);
-routes.get("/orders", ensureAuthenticateUser, getOrderController.handle)
+routes.delete("/orders/id:",  deleteOrderController.handle)
+routes.post("/orders",  createOrderController.handle);
+routes.put("/orders/:id",  updateOrderController.handle);
+routes.get("/orders", getOrderController.handle)
 
 
 routes.get("/", (req, res) => {

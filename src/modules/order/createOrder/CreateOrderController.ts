@@ -8,6 +8,7 @@ export class CreateOrderController {
         const {
             id,
             date_created,
+            date_submitted,
             fk_id_payment_options,
             fk_id_user,
             is_open,
@@ -19,6 +20,7 @@ export class CreateOrderController {
         const result = await createOrderUseCase.execute({
             id,
             date_created,
+            date_submitted,
             fk_id_payment_options,
             fk_id_user,
             is_open,
