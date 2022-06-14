@@ -8,11 +8,13 @@ interface IProductInOrder {
     gg:number,
     fk_id_product: string,
     hasPromotion: false,
+    order_product_value:number
+
 
 }
 
 interface ICreateOrder {
-    id: string;
+    id_order: string;
     date_created: Date;
     fk_id_payment_options: string;
     fk_id_user: string;
@@ -24,7 +26,7 @@ interface ICreateOrder {
 export class CreateOrderUseCase {
 
     async execute({
-        id,
+        id_order,
         date_created,
         fk_id_payment_options,
         fk_id_user,
@@ -34,28 +36,30 @@ export class CreateOrderUseCase {
 
         //Validar se o Pedido existe
         try {
+            console.log(id_order,"id")
             const orderExists = await prisma.order.findFirst({
+                
                 where: {
                     id: {
-                        equals: id,
+                        equals: id_order,
                         mode: 'insensitive',
                     }
                 }
             });
-
+            
+            
+            console.log()
+            console.log(orderExists,"orderExists")
             if (orderExists) {
                 throw new Error("Order already Exists!")
             }
+            
         }
         catch (err) {
             console.log(err);
         }
-
-
         //Salvar o Pedido
         try {
-
-
             const order = await prisma.order.create({
 
                 data: {
@@ -65,22 +69,15 @@ export class CreateOrderUseCase {
                     is_open,
                     product_has_order: {
                         create: product_has_order
-
-                    
-                    }
-                    
-                }
-                
-            });
-            
-            
+                    }  
+                } 
+            });    
 
             return order
         }
         catch (err) {
             console.log(err);
         }
-
 
     }
 }

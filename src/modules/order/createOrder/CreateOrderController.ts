@@ -1,23 +1,46 @@
 import { Request, Response } from 'express'
 import { CreateOrderUseCase } from './CreateOrderUseCase';
+import { ValidateOrderQnt } from './ValidateOrderQnt';
 
 export class CreateOrderController {
 
     async handle(request: Request, response: Response) {
 
         const {
-            id,
+            
             date_created,
             fk_id_payment_options,
             fk_id_user,
             is_open,
             product_has_order
         } = request.body;
+        const {id:id_order} = request.params;
+        console.log(id_order, "ID DO CONTROLE")
 
+    
+        
         const createOrderUseCase = new CreateOrderUseCase();
 
+        // GEORGE ALTERAÇÃO
+
+        const validateOrderQnt = new ValidateOrderQnt()
+
+        for(var i of product_has_order){
+            var valido =await validateOrderQnt.execute(i)
+            if(valido == false){
+                console.log("não validado no controller")
+                return response.json({
+                    "Erro":"Requisição de tamanho maior que o estoque possui",
+                    "produto":i
+            })
+            }
+
+        }
+        
+        // GEORGE ALTERAÇÃO
+
         const result = await createOrderUseCase.execute({
-            id,
+            id_order,
             date_created,
             fk_id_payment_options,
             fk_id_user,

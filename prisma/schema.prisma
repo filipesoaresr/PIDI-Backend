@@ -77,7 +77,7 @@ model PaymentOptions {
   name        String  @db.VarChar(20)
   flag        String? @db.VarChar(20)
   installment String? @default("Sem Parcelamento") @db.VarChar(20)
-  order       Order?
+  order       Order[]
 
   @@map("payment_options")
 }
