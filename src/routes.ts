@@ -32,11 +32,14 @@ import { GetOrderController } from './modules/order/getOrder/GetOrderController'
 import { CreateOrderController } from './modules/order/createOrder/CreateOrderController';
 import { UpdateOrderController } from './modules/order/updateOrder/UpdateOrderController';
 import { DeleteOrderController } from './modules/order/deleteOrder/DeleteOrderController';
+import { GetOrderFechadaController } from './modules/order/getOrder/GetOrderFechadaController';
 
 
 // TESTE MEU
 
 import { SubOrderController } from './modules/order/TESTANDOCOISA/subOrderController';
+
+
 
 
 const routes = Router();
@@ -70,6 +73,7 @@ const createOrderController = new CreateOrderController();
 const updateOrderController = new UpdateOrderController();
 const deleteOrderController = new DeleteOrderController();
 
+const gerOrderFechada = new GetOrderFechadaController();
 //Authenticate
 const authenticateUserController = new AuthenticateUserController();
 
@@ -106,6 +110,8 @@ routes.delete("/orders/id:", deleteOrderController.handle)
 routes.post("/orders", createOrderController.handle);
 routes.put("/orders/:id", updateOrderController.handle);
 routes.get("/orders", getOrderController.handle)
+
+routes.get("/closedOrders", gerOrderFechada.handle)
 
 //criar get de order/:id // TESTE MEU
 routes.get("/orders/:id", getOrderController.handle)
