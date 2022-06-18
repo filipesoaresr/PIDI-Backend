@@ -34,11 +34,11 @@ model Product {
   name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
   value             Float             @db.Real
-  pp                Int?              @db.Integer
-  p                 Int?              @db.Integer
-  m                 Int?              @db.Integer
-  g                 Int?              @db.Integer
-  gg                Int?              @db.Integer
+  pp                Int?              @default(0) @db.Integer
+  p                 Int?              @default(0) @db.Integer
+  m                 Int?              @default(0) @db.Integer
+  g                 Int?              @default(0) @db.Integer
+  gg                Int?              @default(0) @db.Integer
   id_promotion      String?
   //promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
@@ -99,12 +99,12 @@ model Order {
 }
 
 model ProductHasOrder {
-  pp                  Int?              @db.Integer
-  p                   Int?              @db.Integer
-  m                   Int?              @db.Integer
-  g                   Int?              @db.Integer
-  gg                  Int?              @db.Integer
-  order_product_value Float             @default(0) @db.Real
+  pp                  Int?              @default(0) @db.Integer
+  p                   Int?              @default(0) @db.Integer
+  m                   Int?              @default(0) @db.Integer
+  g                   Int?              @default(0) @db.Integer
+  gg                  Int?              @default(0) @db.Integer
+  order_product_value Float             @db.Real
   fk_id_product       String
   fk_id_order         String
   hasPromotion        Boolean           @default(false)
