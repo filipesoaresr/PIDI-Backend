@@ -87,7 +87,7 @@ model Order {
   date_created          DateTime          @default(now()) @db.Date
   fk_id_payment_options String            
   fk_id_user            String
-  date_submitted        DateTime          @default(now()) @db.Date
+  date_submitted        DateTime?          @db.Date
   is_open               Boolean           @default(true)
   total_value           Float             @default(0) @db.Real 
 
@@ -99,6 +99,7 @@ model Order {
 }
 
 model ProductHasOrder {
+  product_name        String?
   pp                  Int?              @default(0) @db.Integer
   p                   Int?              @default(0) @db.Integer
   m                   Int?              @default(0) @db.Integer

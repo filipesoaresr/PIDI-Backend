@@ -6,13 +6,13 @@ export class UpdateOrderController {
     async handle(request: Request, response: Response) {
 
         const {
-            id,
             date_created,
             fk_id_payment_options,
             fk_id_user,
             is_open
         } = request.body;
 
+        const { id: id } = request.params;
 
         const updateOrderUseCase = new UpdateOrderUseCase();
 

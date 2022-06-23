@@ -73,13 +73,13 @@ const authenticateUserController = new AuthenticateUserController();
 
 //User
 //routes.get("/users", ensureAuthenticateUser, getUserController.handle)
-routes.get("/users", getUserController.handle)
+routes.get("/users",  getUserController.handle)
 routes.post("/users", createUserController.handle);
 routes.delete("/users/:id", deleteUserController.handle);
 routes.put("/users/:id", updateUserController.handle);
 
 //Product
-routes.get("/products", getProductsController.handle)
+routes.get("/products", ensureAuthenticateUser, getProductsController.handle)
 routes.post("/products", createProductController.handle);
 routes.put("/products/:id", updateProductController.handle);
 routes.delete("/products/:id", deleteProductController.handle);
@@ -97,10 +97,11 @@ routes.post("/payment_options", createPaymentOptionsController.handle);
 
 
 //Order
-routes.delete("/orders/id:",  deleteOrderController.handle)
+routes.delete("/orders/:id",  deleteOrderController.handle)
 routes.post("/orders",  createOrderController.handle);
 routes.put("/orders/:id",  updateOrderController.handle);
 routes.get("/orders", getOrderController.handle)
+routes.get("/orders/:id", getOrderController.handleOne)
 
 
 routes.get("/", (req, res) => {

@@ -12,4 +12,16 @@ export class GetOrderController {
         return response.json(order);
 
     }
+
+
+    async handleOne(request: Request, response: Response) {
+        const { id: id } = request.params;
+
+        const getOrderUseCase = new GetOrderUseCase();
+
+        const order = await getOrderUseCase.executeOne(id);
+
+        return response.json(order);
+
+    }
 }
