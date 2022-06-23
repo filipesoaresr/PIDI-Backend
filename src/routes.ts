@@ -104,7 +104,7 @@ routes.get("/orders", getOrderController.handle)
 routes.get("/orders/:id", getOrderController.handleOne)
 
 //Sales
-routes.get("/sales", getOrderController.handleSales)
+routes.get("/sales/:start_date/:end_date", getOrderController.handleSales)
 routes.put("/sales/:id",  updateOrderController.handleSales);
 
 

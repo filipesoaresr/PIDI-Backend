@@ -1,6 +1,5 @@
 import { prisma } from '../../../database/prismaClient';
 
-
 export class GetOrderUseCase {
 
     async execute() {
@@ -30,12 +29,16 @@ export class GetOrderUseCase {
         }
     }
 
-    async executeSales() {
+    async executeSales(startDate: string, endDate: string) {
 
         try {
             const sales = await prisma.order.findMany({
                 where: {
                     is_open: false,
+                    date_submitted: {
+                        lte: endDate,
+                        gte: startDate
+                    }
                 },
                 include:{
                     product_has_order:true,

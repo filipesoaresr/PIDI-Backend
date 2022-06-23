@@ -26,12 +26,13 @@ export class GetOrderController {
     }
 
     async handleSales(request: Request, response: Response) {
-        //const { startDate, endDate } = request.body;
+        const { start_date: start_date, end_date: end_date } = request.params;
 
         const getOrderUseCase = new GetOrderUseCase();
 
         const sales = await getOrderUseCase.executeSales(
-          
+            start_date,
+            end_date 
         );
 
         return response.json(sales);
