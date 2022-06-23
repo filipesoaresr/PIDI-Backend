@@ -8,7 +8,6 @@ interface IUpdateOrder {
     is_open: boolean;
 }
 
-
 export class UpdateOrderUseCase {
 
     async execute({
@@ -75,6 +74,28 @@ export class UpdateOrderUseCase {
         }
 
         
+    }
+
+    async executeSales(
+    id: string,
+    is_open: boolean,
+    date_submitted: Date
+    ) {
+        try {
+            const sale = await prisma.order.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    is_open: is_open,
+                    date_submitted: date_submitted
+                }
+            });
+            return sale
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 }
 

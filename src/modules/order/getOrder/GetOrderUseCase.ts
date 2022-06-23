@@ -30,4 +30,22 @@ export class GetOrderUseCase {
         }
     }
 
+    async executeSales() {
+
+        try {
+            const sales = await prisma.order.findMany({
+                where: {
+                    is_open: false,
+                },
+                include:{
+                    product_has_order:true,
+                }
+            });
+            return sales
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 }

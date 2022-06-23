@@ -103,10 +103,10 @@ routes.put("/orders/:id",  updateOrderController.handle);
 routes.get("/orders", getOrderController.handle)
 routes.get("/orders/:id", getOrderController.handleOne)
 
+//Sales
+routes.get("/sales", getOrderController.handleSales)
+routes.put("/sales/:id",  updateOrderController.handleSales);
 
-routes.get("/", (req, res) => {
-    res.json({"Hello":"world"})
-});
 
 
 //Account
