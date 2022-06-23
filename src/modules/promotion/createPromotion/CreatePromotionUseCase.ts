@@ -1,13 +1,16 @@
 import { prisma } from '../../../database/prismaClient';
 
-
+interface Product {
+    id: string;
+}
 interface ICreatePromotion {
     name: string;
     startDate?: Date;
     end_date?: Date;
     discount: string;
-    products: string[];
+    products?: string[];
 }
+
 
 export class CreatePromotionUseCase {
 
@@ -46,11 +49,23 @@ export class CreatePromotionUseCase {
                     name,
                     end_date,
                     discount,
-                    products: products,
+                    
                     
                 }
             });
 
+            const updateProduct = await prisma.product.updateMany({
+                where: {
+                    id: {
+                        in: products 
+                    }
+                },
+                data: {
+                  id_promotion: promotion.id
+                },
+              })
+            console.log(updateProduct)
+            console.log("Promotion ID",promotion.id)
             return promotion
         }
         catch (err) {

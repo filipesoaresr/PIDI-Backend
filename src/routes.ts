@@ -79,7 +79,7 @@ routes.delete("/users/:id", deleteUserController.handle);
 routes.put("/users/:id", updateUserController.handle);
 
 //Product
-routes.get("/products", ensureAuthenticateUser, getProductsController.handle)
+routes.get("/products", getProductsController.handle)
 routes.post("/products", createProductController.handle);
 routes.put("/products/:id", updateProductController.handle);
 routes.delete("/products/:id", deleteProductController.handle);

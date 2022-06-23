@@ -42,6 +42,7 @@ export class GetOrderUseCase {
                 },
                 include:{
                     product_has_order:true,
+                    user: true
                 }
             });
             return sales

@@ -34,16 +34,15 @@ model Product {
   name              String            @db.VarChar(50)
   date_created      DateTime          @default(now())
   value             Float             @db.Real
-  pp                Int?              @default(0) @db.Integer
-  p                 Int?              @default(0) @db.Integer
-  m                 Int?              @default(0) @db.Integer
-  g                 Int?              @default(0) @db.Integer
-  gg                Int?              @default(0) @db.Integer
+  pp                Int?              @db.Integer
+  p                 Int?              @db.Integer
+  m                 Int?              @db.Integer
+  g                 Int?              @db.Integer
+  gg                Int?              @db.Integer
   id_promotion      String?
-  //promotion         Promotion?        @relation(fields: [id_promotion], references: [id])
+  promotion         Promotion?         @relation(fields: [id_promotion], references: [id])
   product_has_order ProductHasOrder[]
   PromotionHasProduct PromotionHasProduct[]
-
   @@map("product")
 }
 
@@ -54,8 +53,7 @@ model Promotion {
   start_date DateTime  @db.Date @default(now())
   end_date   DateTime? @db.Date
   discount   String?   @db.VarChar(15)
-  products   String[]
-
+  products   Product[]
   PromotionHasProduct PromotionHasProduct[]
   @@map("promotion")
 }
@@ -93,7 +91,7 @@ model Order {
 
   user                  User              @relation(fields: [fk_id_user], references: [id])
   payment_option        PaymentOptions    @relation(fields: [fk_id_payment_options], references: [id])
-  product_has_order     ProductHasOrder[]
+  product_has_order     ProductHasOrder[] 
 
   @@map("order")
 }
@@ -109,8 +107,8 @@ model ProductHasOrder {
   fk_id_product       String
   fk_id_order         String
   hasPromotion        Boolean           @default(false)
-  products            Product           @relation(fields: [fk_id_product], references: [id])
-  order               Order             @relation(fields: [fk_id_order], references: [id])
+  products            Product           @relation(fields: [fk_id_product], references: [id]) 
+  order               Order             @relation(fields: [fk_id_order], references: [id], onDelete: Cascade)
 
   @@id([fk_id_product, fk_id_order])
   @@map("product_has_order")
