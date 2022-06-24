@@ -79,6 +79,7 @@ routes.delete("/users/:id", deleteUserController.handle);
 routes.put("/users/:id", updateUserController.handle);
 
 //Product
+routes.get("/products/search/:product_name", getProductsController.handleSearch)
 routes.get("/products", getProductsController.handle)
 routes.post("/products", createProductController.handle);
 routes.put("/products/:id", updateProductController.handle);
@@ -91,6 +92,7 @@ routes.put("/promotions/:id", updatePromotionController.handle);
 routes.delete("/promotions/:id", deletePromotionController.handle);
 
 //Payment Options
+routes.get("/payment_options/search/:payment_option_name", getPaymentOptionsController.handleSearch)
 routes.get("/payment_options", getPaymentOptionsController.handle)
 routes.delete("/payment_options/:id", deletePaymentOptionController.handle)
 routes.post("/payment_options", createPaymentOptionsController.handle);
