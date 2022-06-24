@@ -18,4 +18,28 @@ export class GetProductsUseCase {
         }
     }
 
+    async executeSearch(product_name: string) {
+
+        try {
+            const product = await prisma.product.findMany(
+                {   where: { 
+                    name: {
+                        contains: product_name,
+                        mode: 'insensitive',
+                    }
+                },
+                    include:{promotion: true}
+                }
+            );
+            return product
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+
 }
+
+//equals: ,
+//mode: 'insensitive',

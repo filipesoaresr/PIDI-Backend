@@ -11,4 +11,16 @@ export class GetProductsController {
 
         return response.json(products);
     }
+
+    async handleSearch(request: Request, response: Response) {
+
+        const getProductsUseCase = new GetProductsUseCase();
+        const {product_name: product_name} = request.params;
+
+        const productsResult = await getProductsUseCase.executeSearch(
+            product_name,
+        );
+
+        return response.json(productsResult);
+    }
 }
