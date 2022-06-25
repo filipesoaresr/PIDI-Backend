@@ -52,4 +52,26 @@ export class GetOrderUseCase {
         }
     }
 
+
+    async executeSearch(date_created: string) {
+
+        try {
+            const order = await prisma.order.findMany(
+                {   where: {  
+                    date_created: date_created
+                    },
+                    include:{
+                        product_has_order:true,
+                        user: true
+                    }
+                },     
+            );
+            console.log(order)
+            return order
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 }

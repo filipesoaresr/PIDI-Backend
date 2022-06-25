@@ -28,4 +28,25 @@ export class GetUserUseCase {
             console.error(err);
         }
     }
+
+
+    async executeSearch(user_name: string) {
+
+        try {
+            const user = await prisma.user.findMany(
+                {   where: { 
+                    name: {
+                        contains: user_name,
+                        mode: 'insensitive',
+                    }
+                }
+            }
+            );
+            return user
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 }

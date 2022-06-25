@@ -73,6 +73,7 @@ const authenticateUserController = new AuthenticateUserController();
 
 //User
 //routes.get("/users", ensureAuthenticateUser, getUserController.handle)
+routes.get("/users/search/:user_name", getUserController.handleSearch)
 routes.get("/users",  getUserController.handle)
 routes.post("/users", createUserController.handle);
 routes.delete("/users/:id", deleteUserController.handle);
@@ -86,6 +87,7 @@ routes.put("/products/:id", updateProductController.handle);
 routes.delete("/products/:id", deleteProductController.handle);
 
 //Promotion
+routes.get("/promotions/search/:promotion_name", getPromotionController.handleSearch)
 routes.get("/promotions", getPromotionController.handle)
 routes.post("/promotions",  createPromotionController.handle);
 routes.put("/promotions/:id", updatePromotionController.handle);
@@ -104,6 +106,7 @@ routes.post("/orders",  createOrderController.handle);
 routes.put("/orders/:id",  updateOrderController.handle);
 routes.get("/orders", getOrderController.handle)
 routes.get("/orders/:id", getOrderController.handleOne)
+routes.get("/orders/search/:product_name", getOrderController.handleSearch)
 
 //Sales
 routes.get("/sales/:start_date/:end_date", getOrderController.handleSales)
