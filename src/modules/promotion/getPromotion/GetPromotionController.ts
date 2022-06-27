@@ -21,7 +21,18 @@ export class GetPromotionController {
         const promotionResult = await getPromotionUseCase.executeSearch(
             promotion_name,
         );
-
+            console.log(promotionResult)
         return response.json(promotionResult);
+    }
+
+    async handleOne(request: Request, response: Response) {
+        const { id: id } = request.params;
+
+        const getPromotionUseCase = new GetPromotionUseCase();
+
+        const promotion = await getPromotionUseCase.executeOne(id);
+
+        return response.json(promotion);
+
     }
 }

@@ -51,18 +51,7 @@ export class UpdateOrderUseCase {
                     fk_id_user,
                     is_open,
                     product_has_order:{
-                        create:[
-                            {
-                                pp:1,
-                                p:2,
-                                m:1,
-                                g:1,
-                                gg:2,
-                                fk_id_product:"aslçdk465",
-                                hasPromotion:false,
-                            }
-
-                        ]
+                      
                     }
                 }
             });

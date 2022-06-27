@@ -87,6 +87,7 @@ routes.put("/products/:id", updateProductController.handle);
 routes.delete("/products/:id", deleteProductController.handle);
 
 //Promotion
+routes.get("/promotions/:id", getPromotionController.handleOne)
 routes.get("/promotions/search/:promotion_name", getPromotionController.handleSearch)
 routes.get("/promotions", getPromotionController.handle)
 routes.post("/promotions",  createPromotionController.handle);

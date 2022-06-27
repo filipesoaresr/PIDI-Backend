@@ -8,7 +8,7 @@ export class DeletePromotionController {
         const { id: id_promotion } = request.params;
 
         const deletePromotionUseCase = new DeletePromotionUseCase();
-        const deletedPromotion = deletePromotionUseCase.execute({
+        const deletedPromotion = await deletePromotionUseCase.execute({
             id_promotion
         });
         console.log("Promotion deleted!");

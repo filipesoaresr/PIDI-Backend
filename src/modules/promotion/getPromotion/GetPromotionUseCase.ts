@@ -38,4 +38,20 @@ export class GetPromotionUseCase {
         }
     }
 
+    async executeOne(id: string) {
+
+        try {
+            const promotion = await prisma.promotion.findUnique({
+                where: {
+                    id: id,
+                },
+                include:{products:true}
+            });
+            return promotion
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 }

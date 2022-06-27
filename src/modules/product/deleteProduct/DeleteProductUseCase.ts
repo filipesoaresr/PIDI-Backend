@@ -13,10 +13,14 @@ export class DeleteProductUseCase {
                     id: id_product
                 }
             });
+
             return result
         }
+
         catch (err) {
+
             console.log(err)
+            return err
         }
     }
 }
