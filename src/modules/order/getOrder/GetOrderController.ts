@@ -41,14 +41,16 @@ export class GetOrderController {
 
     async handleSearch(request: Request, response: Response) {
 
+        const { start_date: start_date, end_date: end_date } = request.params;
+
         const getOrderUseCase = new GetOrderUseCase();
-        const {date_created: date_created} = request.params;
 
-        const ordersResult = await getOrderUseCase.executeSearch(
-            date_created,
+        const orderResult = await getOrderUseCase.executeSearch(
+            start_date,
+            end_date 
         );
-
-        return response.json(ordersResult);
+        console.log(orderResult);
+        return response.json(orderResult);
     }
 
 

@@ -21,7 +21,8 @@ export class GetPromotionController {
         const promotionResult = await getPromotionUseCase.executeSearch(
             promotion_name,
         );
-            console.log(promotionResult)
+        console.log("Promotion Name", promotion_name);
+        console.log(promotionResult)
         return response.json(promotionResult);
     }
 

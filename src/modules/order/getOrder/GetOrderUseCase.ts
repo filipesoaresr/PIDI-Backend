@@ -53,21 +53,24 @@ export class GetOrderUseCase {
     }
 
 
-    async executeSearch(date_created: string) {
+    async executeSearch(startDate: string, endDate: string) {
 
         try {
-            const order = await prisma.order.findMany(
-                {   where: {  
-                    date_created: date_created
-                    },
-                    include:{
-                        product_has_order:true,
-                        user: true
+            const orderResult = await prisma.order.findMany({
+                where: {
+                    is_open: true,
+                    date_created: {
+                        lte: endDate,
+                        gte: startDate
                     }
-                },     
-            );
-            console.log(order)
-            return order
+                },
+                include:{
+                    product_has_order:true,
+                    user: true
+                }
+            });
+            console.log("ORDER", orderResult);
+            return orderResult
         }
         catch (err) {
             console.log(err)

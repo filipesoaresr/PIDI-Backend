@@ -107,7 +107,7 @@ routes.post("/orders",  createOrderController.handle);
 routes.put("/orders/:id",  updateOrderController.handle);
 routes.get("/orders", getOrderController.handle)
 routes.get("/orders/:id", getOrderController.handleOne)
-routes.get("/orders/search/:product_name", getOrderController.handleSearch)
+routes.get("/orders/search/:start_date/:end_date", getOrderController.handleSearch)
 
 //Sales
 routes.get("/sales/:start_date/:end_date", getOrderController.handleSales)

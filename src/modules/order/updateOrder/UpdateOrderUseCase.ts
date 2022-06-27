@@ -2,10 +2,15 @@ import { prisma } from '../../../database/prismaClient';
 
 interface IUpdateOrder {
     id : string;
-    date_created: Date;
-    fk_id_payment_options: string;
-    fk_id_user: string;
-    is_open: boolean;
+    date_created?: Date;
+    fk_id_payment_options?: string;
+    fk_id_user?: string;
+    is_open?: boolean;
+    pp?: number;
+    p?: number;
+    m?: number;
+    g?: number;
+    gg?: number;
 }
 
 export class UpdateOrderUseCase {
@@ -15,7 +20,12 @@ export class UpdateOrderUseCase {
         date_created,
         fk_id_payment_options,
         fk_id_user,
-        is_open
+        is_open,
+        pp,
+        p,
+        m,
+        g,
+        gg
     }: IUpdateOrder) {
 
         //Validar se o Pedido existe
