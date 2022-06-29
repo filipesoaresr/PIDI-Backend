@@ -8,6 +8,7 @@ interface IUpdateUser {
     password?: string;
     phone?: string;
     email?: string;
+    role?: string;
 }
 
 
@@ -19,7 +20,8 @@ export class UpdateUserUseCase {
         username,
         password,
         phone,
-        email
+        email,
+        role
 
     }: IUpdateUser) {
 
@@ -33,7 +35,8 @@ export class UpdateUserUseCase {
                     username,
                     password,
                     phone,
-                    email
+                    email,
+                    role
                 }
             });
             return updateUser

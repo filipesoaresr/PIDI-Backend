@@ -6,11 +6,7 @@ interface IUpdateOrder {
     fk_id_payment_options?: string;
     fk_id_user?: string;
     is_open?: boolean;
-    pp?: number;
-    p?: number;
-    m?: number;
-    g?: number;
-    gg?: number;
+    product_has_order: []
 }
 
 export class UpdateOrderUseCase {
@@ -21,32 +17,11 @@ export class UpdateOrderUseCase {
         fk_id_payment_options,
         fk_id_user,
         is_open,
-        pp,
-        p,
-        m,
-        g,
-        gg
+        product_has_order
     }: IUpdateOrder) {
 
-        //Validar se o Pedido existe
-        try {
-            const orderExists = await prisma.order.findFirst({
-                where: {
-                    id: {
-                        equals: id,
-                        mode: 'insensitive',
-                    }
-                }
-            });
-
-            if (orderExists) {
-                throw new Error("Order already Exists!")
-            }
-        }
-        catch (err) {
-            console.log(err);
-        }
-
+        
+     
 
         //Fazer update do Pedido
         try {
@@ -60,9 +35,12 @@ export class UpdateOrderUseCase {
                     fk_id_payment_options,
                     fk_id_user,
                     is_open,
-                    product_has_order:{
-                      
+                    product_has_order: {
+                        create:  product_has_order
                     }
+                        
+                      
+                    
                 }
             });
 

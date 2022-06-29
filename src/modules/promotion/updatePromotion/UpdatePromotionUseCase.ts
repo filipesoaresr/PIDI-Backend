@@ -4,24 +4,24 @@ import { prisma } from '../../../database/prismaClient';
 interface IUpdatePromotion {
     id_promotion: string;
     name?: string;
-    startDate?: Date;
-    endDate?: Date;
+    start_date: Date;
+    end_date: Date,
     discount?: string;
-    productsInPromo?: [];
+    products?: Array<any>;
 }
-
 
 export class UpdatePromotionUseCase {
 
     async execute({
         id_promotion,
         name,
-        startDate,
-        endDate,
+        start_date,
+        end_date,
         discount,
-        productsInPromo,
+        products,
     }: IUpdatePromotion) {
 
+        console.log(products)
         try {
             const promotion = await prisma.promotion.update({
                 where: {
@@ -29,17 +29,35 @@ export class UpdatePromotionUseCase {
                 },
                 data: {
                     name,
-                    startDate,
-                    endDate,
+                    start_date,
+                    end_date,
                     discount,
-                    productsInPromo
+                    
                 }
             });
-            return promotion
         }
         catch (err) {
             console.log(err);
         }
 
-    }
+        console.log(products)
+        const updateProduct = await prisma.product.updateMany({
+            where: {
+                id: {
+                    in: products 
+                }
+            },
+            data: {
+              id_promotion: id_promotion
+            },
+          })
+            console.log(updateProduct)
+            console.log("Promotion ID",id_promotion)
+           
+        }
+        catch (err: any) {
+            console.log(err);
+        }
 }
+
+  

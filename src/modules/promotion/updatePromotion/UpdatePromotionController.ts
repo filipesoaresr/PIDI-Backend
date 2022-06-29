@@ -7,10 +7,10 @@ export class UpdatePromotionController {
 
         const {
             name,
-            startDate,
-            endDate,
+            start_date,
+            end_date,
             discount,
-            productsInPromo,
+            products,
         } = request.body;
 
         const { id: id_promotion } = request.params;
@@ -20,12 +20,17 @@ export class UpdatePromotionController {
         const result = await updatePromotionUseCase.execute({
             id_promotion,
             name,
-            startDate,
-            endDate,
+            start_date,
+            end_date,
             discount,
-            productsInPromo,
+            products,
         });
-
+        console.log("RESULT id", id_promotion)
+        console.log("RESULT name", name)
+        console.log("RESULT start_date", start_date)
+        console.log("RESULT end_date", end_date)
+        console.log("RESULT discount", discount)
+        console.log("RESULT products", products)
         return response.json(result);
     }
 }

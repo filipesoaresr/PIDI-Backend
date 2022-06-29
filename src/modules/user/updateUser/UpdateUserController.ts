@@ -10,7 +10,8 @@ export class UpdateUserController {
             username,
             password,
             phone,
-            email
+            email,
+            role
         } = request.body;
 
         const { id: id_user } = request.params;
@@ -24,7 +25,8 @@ export class UpdateUserController {
             username,
             password,
             phone,
-            email
+            email,
+            role
         });
         return response.json(result);
     }

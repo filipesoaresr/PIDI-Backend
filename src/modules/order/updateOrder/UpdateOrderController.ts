@@ -14,7 +14,8 @@ export class UpdateOrderController {
             date_created,
             fk_id_payment_options,
             fk_id_user,
-            is_open
+            is_open,
+            product_has_order
         } = request.body;
 
         const { id: id } = request.params;
@@ -26,7 +27,8 @@ export class UpdateOrderController {
             date_created,
             fk_id_payment_options,
             fk_id_user,
-            is_open 
+            is_open,
+            product_has_order
         });
 
         return response.json(result);
