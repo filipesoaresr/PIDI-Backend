@@ -33,4 +33,37 @@ export class UpdatePromotionController {
         console.log("RESULT products", products)
         return response.json(result);
     }
+
+
+    async handleProductsInOrder(request: Request, response: Response) {
+
+        const {
+            name,
+            start_date,
+            end_date,
+            discount,
+            products,
+        } = request.body;
+
+        const { id: id_products } = request.params;
+
+        const updatePromotionUseCase = new UpdatePromotionUseCase();
+
+        const resultProducts = await updatePromotionUseCase.executeProducts({
+            id_products,
+            name,
+            start_date,
+            end_date,
+            discount,
+            products,
+        });
+        console.log("RESULT id", id_products)
+        console.log("RESULT name", name)
+        console.log("RESULT start_date", start_date)
+        console.log("RESULT end_date", end_date)
+        console.log("RESULT discount", discount)
+        console.log("RESULT products", products)
+        return response.json(resultProducts);
+    }
+
 }

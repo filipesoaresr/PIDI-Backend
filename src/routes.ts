@@ -73,45 +73,46 @@ const authenticateUserController = new AuthenticateUserController();
 
 //User
 //routes.get("/users", ensureAuthenticateUser, getUserController.handle)
-routes.get("/users/search/:user_name", getUserController.handleSearch)
-routes.get("/users",  getUserController.handle)
+routes.get("/users/search/:user_name", ensureAuthenticateUser, getUserController.handleSearch)
+routes.get("/users", ensureAuthenticateUser, getUserController.handle)
 routes.post("/users", createUserController.handle);
-routes.delete("/users/:id", deleteUserController.handle);
-routes.put("/users/:id", updateUserController.handle);
+routes.delete("/users/:id", ensureAuthenticateUser, deleteUserController.handle);
+routes.put("/users/:id", ensureAuthenticateUser, updateUserController.handle);
 
 //Product
-routes.get("/products/search/:product_name", getProductsController.handleSearch)
-routes.get("/products", getProductsController.handle)
-routes.post("/products", createProductController.handle);
-routes.put("/products/:id", updateProductController.handle);
-routes.delete("/products/:id", deleteProductController.handle);
+routes.get("/products/search/:product_name", ensureAuthenticateUser, getProductsController.handleSearch)
+routes.get("/products", ensureAuthenticateUser, getProductsController.handle)
+routes.post("/products", ensureAuthenticateUser, createProductController.handle);
+routes.put("/products/:id", ensureAuthenticateUser, updateProductController.handle);
+routes.delete("/products/:id", ensureAuthenticateUser, deleteProductController.handle);
 
 //Promotion
-routes.get("/promotions/:id", getPromotionController.handleOne)
-routes.get("/promotions/search/:promotion_name", getPromotionController.handleSearch)
-routes.get("/promotions", getPromotionController.handle)
-routes.post("/promotions",  createPromotionController.handle);
-routes.put("/promotions/:id", updatePromotionController.handle);
-routes.delete("/promotions/:id", deletePromotionController.handle);
+routes.get("/promotions/:id", ensureAuthenticateUser, getPromotionController.handleOne)
+routes.get("/promotions/search/:promotion_name", ensureAuthenticateUser, getPromotionController.handleSearch)
+routes.get("/promotions", ensureAuthenticateUser, getPromotionController.handle)
+routes.post("/promotions", ensureAuthenticateUser,  createPromotionController.handle);
+routes.put("/promotions/:id", ensureAuthenticateUser, updatePromotionController.handle);
+routes.put("/promotions/remove-products/:id", ensureAuthenticateUser, updatePromotionController.handleProductsInOrder);
+routes.delete("/promotions/:id", ensureAuthenticateUser, deletePromotionController.handle);
 
 //Payment Options
-routes.get("/payment_options/search/:payment_option_name", getPaymentOptionsController.handleSearch)
-routes.get("/payment_options", getPaymentOptionsController.handle)
-routes.delete("/payment_options/:id", deletePaymentOptionController.handle)
-routes.post("/payment_options", createPaymentOptionsController.handle);
+routes.get("/payment_options/search/:payment_option_name", ensureAuthenticateUser, getPaymentOptionsController.handleSearch)
+routes.get("/payment_options", ensureAuthenticateUser, getPaymentOptionsController.handle)
+routes.delete("/payment_options/:id", ensureAuthenticateUser, deletePaymentOptionController.handle)
+routes.post("/payment_options", ensureAuthenticateUser, createPaymentOptionsController.handle);
 
 
 //Order
-routes.delete("/orders/:id",  deleteOrderController.handle)
-routes.post("/orders",  createOrderController.handle);
-routes.put("/orders/:id",  updateOrderController.handle);
-routes.get("/orders", getOrderController.handle)
-routes.get("/orders/:id", getOrderController.handleOne)
-routes.get("/orders/search/:start_date/:end_date", getOrderController.handleSearch)
+routes.delete("/orders/:id", ensureAuthenticateUser,  deleteOrderController.handle)
+routes.post("/orders", ensureAuthenticateUser,  createOrderController.handle);
+routes.put("/orders/:id", ensureAuthenticateUser, updateOrderController.handle);
+routes.get("/orders", ensureAuthenticateUser, getOrderController.handle)
+routes.get("/orders/:id", ensureAuthenticateUser, getOrderController.handleOne)
+routes.get("/orders/search/:start_date/:end_date", ensureAuthenticateUser, getOrderController.handleSearch)
 
 //Sales
-routes.get("/sales/:start_date/:end_date", getOrderController.handleSales)
-routes.put("/sales/:id",  updateOrderController.handleSales);
+routes.get("/sales/:start_date/:end_date", ensureAuthenticateUser, getOrderController.handleSales)
+routes.put("/sales/:id", ensureAuthenticateUser, updateOrderController.handleSales);
 
 
 
