@@ -1,1 +1,1 @@
-web: index.ts
+web: server.ts
