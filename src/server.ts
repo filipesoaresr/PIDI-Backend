@@ -29,6 +29,6 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
     })
 });
 
-app.listen(3333, () => {
+app.listen(process.env.PORT, () => {
     console.log('Backend Started at http://localhost:3333 ')
 })
